@@ -1,4 +1,5 @@
 import { useTheme } from '@/shared/styles/theme';
+import { Fonts } from '@/shared/styles/tokens';
 import { StyleSheet, Text, View } from 'react-native';
 
 export default function SearchTab() {
@@ -19,6 +20,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 24,
   },
   title: {
-    fontSize: 18,
+    fontSize: Fonts.f18,
   },
 });
