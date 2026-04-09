@@ -1,28 +1,22 @@
 import { useTheme } from '@/shared/styles/theme';
-import { Switch } from '@/shared/ui/Switch';
 import { StyleSheet, Text, View } from 'react-native';
 
-export default function App() {
-  const { theme, mode, setMode } = useTheme();
+export default function SearchTab() {
+  const { theme } = useTheme();
 
   return (
     <View style={[styles.container, { backgroundColor: theme.background }]}>
-      <Text style={[styles.title, { color: theme.text }]}>ghb</Text>
-      <Switch
-        value={mode === 'light'}
-        onValueChange={(on) => setMode(on ? 'light' : 'dark')}
-      />
+      <Text style={[styles.title, { color: theme.text }]}>Search Screen</Text>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     alignItems: 'center',
+    flex: 1,
     justifyContent: 'center',
     paddingHorizontal: 24,
-    gap: 24,
   },
   title: {
     fontSize: 18,

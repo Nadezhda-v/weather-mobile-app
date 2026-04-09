@@ -1,6 +1,7 @@
 import { useCallback, useMemo, useState } from 'react';
 import { Switch as RNSwitch, StyleSheet, Text, View } from 'react-native';
 
+import { Colors } from '@/shared/styles/tokens';
 import type { SwitchProps, SwitchSize } from './Switch.types';
 
 const SWITCH_BASE_WIDTH = 72;
@@ -12,14 +13,12 @@ const SIZE_SCALE: Record<SwitchSize, number> = {
   large: 1.5,
 };
 
-const TEXT_BY_SIZE: Record<
-  SwitchSize,
-  { label: number; description: number }
-> = {
-  small: { label: 14, description: 12 },
-  medium: { label: 16, description: 14 },
-  large: { label: 18, description: 16 },
-};
+const TEXT_BY_SIZE: Record<SwitchSize, { label: number; description: number }> =
+  {
+    small: { label: 14, description: 12 },
+    medium: { label: 16, description: 14 },
+    large: { label: 18, description: 16 },
+  };
 
 export const Switch = ({
   value,
@@ -29,9 +28,9 @@ export const Switch = ({
   size = 'medium',
   label,
   description,
-  activeTrackColor = '#3B82F6',
-  inactiveTrackColor = '#9CA3AF',
-  thumbColor = '#FFFFFF',
+  activeTrackColor = `${Colors.primaryColor}`,
+  inactiveTrackColor = `${Colors.trackColor}`,
+  thumbColor = `${Colors.primaryTextColor}`,
   iosBackgroundColor,
   containerStyle,
   labelStyle,
@@ -51,7 +50,7 @@ export const Switch = ({
 
       onValueChange?.(nextValue);
     },
-    [isControlled, onValueChange]
+    [isControlled, onValueChange],
   );
 
   const trackColor = useMemo(
@@ -59,7 +58,7 @@ export const Switch = ({
       false: inactiveTrackColor,
       true: activeTrackColor,
     }),
-    [activeTrackColor, inactiveTrackColor]
+    [activeTrackColor, inactiveTrackColor],
   );
 
   const scale = SIZE_SCALE[size];
@@ -70,7 +69,7 @@ export const Switch = ({
       width: SWITCH_BASE_WIDTH * scale,
       height: SWITCH_BASE_HEIGHT * scale,
     }),
-    [scale]
+    [scale],
   );
 
   return (
@@ -78,11 +77,19 @@ export const Switch = ({
       {(label || description) && (
         <View style={styles.textContainer}>
           {label ? (
-            <Text style={[styles.label, { fontSize: typography.label }, labelStyle]}>{label}</Text>
+            <Text
+              style={[styles.label, { fontSize: typography.label }, labelStyle]}
+            >
+              {label}
+            </Text>
           ) : null}
           {description ? (
             <Text
-              style={[styles.description, { fontSize: typography.description }, descriptionStyle]}
+              style={[
+                styles.description,
+                { fontSize: typography.description },
+                descriptionStyle,
+              ]}
             >
               {description}
             </Text>
@@ -90,7 +97,9 @@ export const Switch = ({
         </View>
       )}
 
-      <View style={[styles.switchContainer, switchOuterStyle, switchContainerStyle]}>
+      <View
+        style={[styles.switchContainer, switchOuterStyle, switchContainerStyle]}
+      >
         <View style={{ transform: [{ scale }] }}>
           <RNSwitch
             disabled={disabled}
@@ -104,29 +113,29 @@ export const Switch = ({
       </View>
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
-    width: '100%',
-    flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-between',
+    flexDirection: 'row',
     gap: 12,
-  },
-  textContainer: {
-    flex: 1,
-    gap: 4,
-  },
-  label: {
-    fontWeight: '600',
-    color: '#FFFFFF',
+    justifyContent: 'space-between',
+    width: '100%',
   },
   description: {
-    color: '#9CA3AF',
+    color: Colors.primaryTextColor,
+  },
+  label: {
+    color: Colors.primaryTextColor,
+    fontWeight: '600',
   },
   switchContainer: {
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  textContainer: {
+    flex: 1,
+    gap: 4,
   },
 });
