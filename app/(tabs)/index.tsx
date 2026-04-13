@@ -1,25 +1,20 @@
 import { useTheme } from '@/shared/styles/theme';
-import { StyleSheet, Text, View } from 'react-native';
+import { Fonts } from '@/shared/styles/tokens';
+import { ScreenLayout } from '@/shared/ui/layout';
+import { StyleSheet, Text } from 'react-native';
 
 export default function HomeTab() {
   const { theme } = useTheme();
 
   return (
-    <View style={[styles.container, { backgroundColor: theme.background }]}>
+    <ScreenLayout>
       <Text style={[styles.title, { color: theme.text }]}>Home Screen</Text>
-    </View>
+    </ScreenLayout>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    alignItems: 'center',
-    flex: 1,
-    gap: 24,
-    justifyContent: 'center',
-    paddingHorizontal: 24,
-  },
   title: {
-    fontSize: 18,
+    fontSize: Fonts.f18,
   },
 });

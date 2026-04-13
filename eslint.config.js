@@ -17,6 +17,15 @@ module.exports = [
       parser: tsParser,
       ecmaVersion: 'latest',
       sourceType: 'module',
+      globals: {
+        __DEV__: 'readonly',
+        clearTimeout: 'readonly',
+        console: 'readonly',
+        fetch: 'readonly',
+        process: 'readonly',
+        setTimeout: 'readonly',
+        URLSearchParams: 'readonly',
+      },
       parserOptions: {
         ecmaFeatures: {
           jsx: true,
@@ -68,6 +77,12 @@ module.exports = [
         },
       ],
       '@typescript-eslint/no-empty-function': 'off',
+    },
+  },
+  {
+    files: ['**/*.{ts,tsx}'],
+    rules: {
+      'react/prop-types': 'off',
     },
   },
   {

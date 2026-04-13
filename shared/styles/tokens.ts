@@ -8,6 +8,8 @@ export const Colors = {
   trackColor: '#9CA3AF',
   cardBackgroundLight: '#afcef3',
   cardBackgroundDark: '#2d2f37',
+  placeholderLight: 'rgba(255, 255, 255, 0.5)',
+  placeholderDark: 'rgba(0, 0, 0, 0.5)',
 };
 
 export const Fonts = {

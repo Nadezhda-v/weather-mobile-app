@@ -2,6 +2,7 @@ export interface ThemeColors {
   text: string;
   background: string;
   cardBackground: string;
+  placeholder: string;
 }
 
 export type ThemeMode = 'light' | 'dark';

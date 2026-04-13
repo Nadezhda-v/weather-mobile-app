@@ -1,0 +1,2 @@
+export const GEOCODING_BASE_URL = process.env.EXPO_PUBLIC_GEOCODING_BASE_URL;
+export const FORECAST_BASE_URL = process.env.EXPO_PUBLIC_FORECAST_BASE_URL;
