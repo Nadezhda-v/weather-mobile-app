@@ -30,6 +30,16 @@ export interface ForecastCurrentWeather {
   windSpeed?: number;
 }
 
+export interface ForecastHourlyWeather {
+  time: string;
+  hour: string;
+  icon?: string;
+  temperature?: number;
+  windSpeed?: number;
+  humidity?: number;
+  precipitationAmount?: number;
+}
+
 export interface LocationForecastResponse {
   latitude: number;
   longitude: number;
@@ -60,11 +70,30 @@ export interface ForecastJson {
         instant?: {
           details?: {
             air_temperature?: number;
+            relative_humidity?: number;
             wind_speed?: number;
-            symbol_code?: string;
           };
         };
         next_1_hours?: {
+          details?: {
+            precipitation_amount?: number;
+          };
+          summary?: {
+            symbol_code?: string;
+          };
+        };
+        next_6_hours?: {
+          details?: {
+            precipitation_amount?: number;
+          };
+          summary?: {
+            symbol_code?: string;
+          };
+        };
+        next_12_hours?: {
+          details?: {
+            precipitation_amount?: number;
+          };
           summary?: {
             symbol_code?: string;
           };

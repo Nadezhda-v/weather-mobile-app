@@ -2,9 +2,10 @@ import type { ForecastHistoryItem } from '@/shared/api/location/types';
 import { useTheme } from '@/shared/styles/theme';
 import { Fonts } from '@/shared/styles/tokens';
 import { useCallback } from 'react';
-import { FlatList, StyleSheet, Text, View } from 'react-native';
+import { FlatList, Pressable, StyleSheet, Text, View } from 'react-native';
 import { ForecastListProps } from '../model/location.types';
 import { getWeatherIconByName } from '../lib/getWeatherIconByName';
+import { useRouter } from 'expo-router';
 
 function ItemSeparator() {
   return <View style={styles.separator} />;
@@ -12,30 +13,42 @@ function ItemSeparator() {
 
 export function ForecastList({ items }: ForecastListProps) {
   const { theme } = useTheme();
+  const router = useRouter();
 
   const renderItem = useCallback(
     ({ item }: { item: ForecastHistoryItem }) => {
       const Icon = getWeatherIconByName(item.forecast.current?.icon);
 
       return (
-        <View style={[styles.card, { backgroundColor: theme.cardBackground }]}>
-          <View>
-            <Text style={[styles.title, { color: theme.text }]}>
-              {item.location.name}
-            </Text>
-            <Text style={[styles.item, { color: theme.text }]}>
-              {`${item.forecast.current?.temperature ?? '-'}°C`}
-            </Text>
-          </View>
-          {Icon && (
-            <View style={styles.iconContainer}>
-              <Icon width={82} height={82} />
+        <Pressable
+          onPress={() =>
+            router.push({
+              pathname: '/location/[id]',
+              params: { id: String(item.location.id) },
+            })
+          }
+        >
+          <View
+            style={[styles.card, { backgroundColor: theme.cardBackground }]}
+          >
+            <View>
+              <Text style={[styles.title, { color: theme.text }]}>
+                {item.location.name}
+              </Text>
+              <Text style={[styles.item, { color: theme.text }]}>
+                {`${item.forecast.current?.temperature ?? '-'}°C`}
+              </Text>
             </View>
-          )}
-        </View>
+            {Icon && (
+              <View style={styles.iconContainer}>
+                <Icon width={82} height={82} />
+              </View>
+            )}
+          </View>
+        </Pressable>
       );
     },
-    [theme.cardBackground, theme.text],
+    [router, theme.cardBackground, theme.text],
   );
 
   if (items.length === 0) return null;
@@ -63,7 +76,7 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
   },
   content: {
-    marginTop: 14,
+    marginVertical: 16,
     paddingBottom: 8,
   },
   iconContainer: {
@@ -72,8 +85,6 @@ const styles = StyleSheet.create({
   },
   item: {
     fontSize: Fonts.f20,
-    marginTop: 6,
-    opacity: 0.85,
   },
   list: {
     alignSelf: 'stretch',

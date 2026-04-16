@@ -20,6 +20,7 @@ interface LocationState {
 export interface LocationActions {
   setSelectedLocation: (location: Location | null) => void;
   upsertForecastHistory: (item: ForecastHistoryItem) => void;
+  getForecastHistoryById: (id: number) => ForecastHistoryItem | null;
   clearForecastHistory: () => void;
   setQuery: (query: string) => void;
   setSearchLoading: (loading: boolean) => void;
@@ -42,7 +43,7 @@ export const INITIAL_STATE: LocationState = {
 
 export const useLocationStore = create<LocationState & LocationActions>()(
   persist(
-    (set) => ({
+    (set, get) => ({
       ...INITIAL_STATE,
       setSelectedLocation: (location) => set({ selectedLocation: location }),
       upsertForecastHistory: (item) =>
@@ -57,6 +58,8 @@ export const useLocationStore = create<LocationState & LocationActions>()(
             ),
           };
         }),
+      getForecastHistoryById: (id) =>
+        get().forecastHistory.find((item) => item.location.id === id) ?? null,
       clearForecastHistory: () => set({ forecastHistory: [] }),
       setQuery: (query) => set({ query }),
       setSearchLoading: (searchLoading) => set({ searchLoading }),
