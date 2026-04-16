@@ -4,6 +4,7 @@ import { Fonts } from '@/shared/styles/tokens';
 import { useCallback } from 'react';
 import { FlatList, StyleSheet, Text, View } from 'react-native';
 import { ForecastListProps } from '../model/location.types';
+import { getWeatherIconByName } from '../lib/getWeatherIconByName';
 
 function ItemSeparator() {
   return <View style={styles.separator} />;
@@ -13,18 +14,27 @@ export function ForecastList({ items }: ForecastListProps) {
   const { theme } = useTheme();
 
   const renderItem = useCallback(
-    ({ item }: { item: ForecastHistoryItem }) => (
-      <View style={[styles.card, { backgroundColor: theme.cardBackground }]}>
-        <View>
-          <Text style={[styles.title, { color: theme.text }]}>
-            {item.location.name}
-          </Text>
-          <Text style={[styles.item, { color: theme.text }]}>
-            {`${item.forecast.current?.temperature_2m ?? '-'}°C`}
-          </Text>
+    ({ item }: { item: ForecastHistoryItem }) => {
+      const Icon = getWeatherIconByName(item.forecast.current?.icon);
+
+      return (
+        <View style={[styles.card, { backgroundColor: theme.cardBackground }]}>
+          <View>
+            <Text style={[styles.title, { color: theme.text }]}>
+              {item.location.name}
+            </Text>
+            <Text style={[styles.item, { color: theme.text }]}>
+              {`${item.forecast.current?.temperature ?? '-'}°C`}
+            </Text>
+          </View>
+          {Icon && (
+            <View style={styles.iconContainer}>
+              <Icon width={82} height={82} />
+            </View>
+          )}
         </View>
-      </View>
-    ),
+      );
+    },
     [theme.cardBackground, theme.text],
   );
 
@@ -44,9 +54,11 @@ export function ForecastList({ items }: ForecastListProps) {
 
 const styles = StyleSheet.create({
   card: {
+    alignItems: 'center',
     borderRadius: 20,
-    height: 116,
-    justifyContent: 'center',
+    flexDirection: 'row',
+    height: 120,
+    justifyContent: 'space-between',
     paddingHorizontal: 26,
     paddingVertical: 10,
   },
@@ -54,8 +66,12 @@ const styles = StyleSheet.create({
     marginTop: 14,
     paddingBottom: 8,
   },
+  iconContainer: {
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
   item: {
-    fontSize: Fonts.f18,
+    fontSize: Fonts.f20,
     marginTop: 6,
     opacity: 0.85,
   },

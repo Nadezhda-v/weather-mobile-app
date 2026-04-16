@@ -27,6 +27,7 @@ export async function getLocationData(
 
   const currentTimeseries = forecast.properties?.timeseries?.[0];
   const instantDetails = currentTimeseries?.data?.instant?.details;
+  const instantOneHours = currentTimeseries?.data?.next_1_hours;
 
   if (!currentTimeseries || !instantDetails)
     throw new Error('Ошибка при получении данных');
@@ -37,8 +38,9 @@ export async function getLocationData(
     timezone: data.timezone ?? 'UTC',
     current: {
       time: currentTimeseries.time,
-      temperature_2m: instantDetails.air_temperature,
-      wind_speed_10m: instantDetails.wind_speed,
+      temperature: instantDetails.air_temperature,
+      windSpeed: instantDetails.wind_speed,
+      icon: instantOneHours?.summary?.symbol_code,
     },
   };
 }

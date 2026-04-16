@@ -1,0 +1,17 @@
+<svg x="0" y="0" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+
+  <defs>
+    <radialGradient id="sun-glow-grad_csd" cx="41" cy="41" r="41" gradientUnits="userSpaceOnUse">
+      <stop offset="54%" stop-color="#d6b849"/>
+      <stop offset="67%" stop-color="#ffce47"/>
+      <stop offset="100%" stop-color="#ffdb73"/>
+    </radialGradient>
+    <linearGradient id="sun-inner-grad_csd" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffaf22" />
+      <stop offset="100%" stop-color="#f09900" />
+    </linearGradient>
+  </defs>
+  <path fill="url(#sun-glow-grad_csd)" d="M75.64,56.86,91,50,75.64,43.12l9.84-13.66L68.76,31.22,70.46,14.47l-13.6,9.89L50,9,43.12,24.36,29.46,14.52l1.76,16.72L14.47,29.54l9.89,13.6L9,50l15.36,6.83-9.84,13.71,16.72-1.76-1.7,16.75,13.6-9.89L50,91l6.83-15.36,13.66,9.84L68.78,68.76l16.75,1.69Z"></path>
+  <path fill="#ffd348" d="M28.28,62.5a25,25,0,1,0,9.15-34.16A25,25,0,0,0,28.28,62.5Z"></path>
+  <path fill="url(#sun-inner-grad_csd)" d="M31.74,60.5a21,21,0,1,0,7.69-28.69A21,21,0,0,0,31.74,60.5Z"></path>
+</svg>

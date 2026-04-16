@@ -25,9 +25,9 @@ export interface GeocodingSearchResponse {
 
 export interface ForecastCurrentWeather {
   time: string;
-  temperature_2m?: number;
-  weather_code?: number;
-  wind_speed_10m?: number;
+  icon?: string;
+  temperature?: number;
+  windSpeed?: number;
 }
 
 export interface LocationForecastResponse {
@@ -61,6 +61,12 @@ export interface ForecastJson {
           details?: {
             air_temperature?: number;
             wind_speed?: number;
+            symbol_code?: string;
+          };
+        };
+        next_1_hours?: {
+          summary?: {
+            symbol_code?: string;
           };
         };
       };
